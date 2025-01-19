@@ -1,12 +1,22 @@
+import hashlib, os
 from database import db
-import hashlib
 from passlib.hash import sha512_crypt as sha
 from datetime import datetime
+from dotenv import load_dotenv
 
+
+# Load environment variables
+load_dotenv("./.env")
 class user:
 
     def __init__(self, username, password):
-        self.db = db('ibrahim', 'localhost', 'Django@2024', 'django')
+        self.db = db(
+            os.environ.get('DBUSER'),
+            os.environ.get('DBHOST'),
+            os.environ.get('DBPASSWORD'),
+            os.environ.get('DBNAME')
+        )
+
         self.username = username 
         self.secret = password
         self.authenticated = False
