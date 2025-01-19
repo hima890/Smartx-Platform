@@ -1,12 +1,23 @@
 import json, database, base64, os, binascii
 from flask import Blueprint, render_template, jsonify, redirect, request
 from .users import user
+from dotenv import load_dotenv
 
+# Load environment variables
+load_dotenv("./.env")
 
 main = Blueprint('main', __name__)
-# Login dic
+# Login setup
 logged_in = {}
 api_loggers = {}
+
+# Database connect
+mydb = database.db(
+    os.environ.get('DBUSER'),
+    os.environ.get('DBHOST'),
+    os.environ.get('DBPASSWORD'),
+    os.environ.get('DBNAME')
+)
 
 
 @main.route('/')
@@ -27,3 +38,4 @@ def login():
             error = "invalid Username or Passowrd"
        
     return render_template('Login.htm', error=error)
+
