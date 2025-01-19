@@ -144,3 +144,8 @@ def logout(username, session):
     else:
         return redirect('/login')
 
+
+@main.route("/api/<string:apikey>/test", methods=["GET", "POST"])
+def apitest (apikey):
+    return {"data":"working Fine Connected to the api server"}
+
