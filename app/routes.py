@@ -77,3 +77,27 @@ def overview(username, session):
     
     else:
         return redirect('/login')
+
+
+@main.route('/apisettings/<string:username>/<string:session>', methods=['GET', 'POST'])
+def apisettings(username, session):
+    
+    global logged_in
+
+    if username in logged_in and (logged_in[username]['object'].session_id == session):
+        user = {
+            "username" : username,
+            "image":"/static/images/amanSingh.jpg",
+            "api": logged_in[username]["object"].api,
+            "session" : session
+        }
+
+        devices = [
+            {"Dashboard" : "device1",
+            "deviceID": "Device1"
+            }
+        ]
+        return render_template('api_settings.htm', title='API-Settings', user=user, devices=devices)
+    
+    else:
+        return redirect('/login')
