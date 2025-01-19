@@ -53,3 +53,27 @@ def Dashoboard():
         }
     ]
     return render_template('device_dashboard.htm', title='Dashobard', user=user, devices=devices)
+
+
+@main.route('/overview/<string:username>/<string:session>', methods=['GET', 'POST'])
+def overview(username, session):
+    
+    global logged_in
+
+    if username in logged_in and (logged_in[username]['object'].session_id == session):
+        user = {
+            "username" : username,
+            "image":"/static/images/amanSingh.jpg",
+            "api": logged_in[username]["object"].api,
+            "session" : session
+        }
+
+        devices = [
+            {"Dashboard" : "device1",
+            "deviceID": "Device1"
+            }
+        ]
+        return render_template('overview.htm', title='Overview', user=user, devices=devices)
+    
+    else:
+        return redirect('/login')
