@@ -39,3 +39,17 @@ def login():
        
     return render_template('Login.htm', error=error)
 
+
+@main.route('/device1/<string:username>/<string:session>', methods=["GET", "POST"])
+def Dashoboard():
+    user = {
+        "username" : "Aman Singh",
+        "image":"static/images/amanSingh.jpg"
+    }
+
+    devices = [
+        {"Dashboard" : "device1",
+        "deviceID": "Device1"
+        }
+    ]
+    return render_template('device_dashboard.htm', title='Dashobard', user=user, devices=devices)
