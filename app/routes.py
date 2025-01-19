@@ -130,3 +130,17 @@ def profile(username, session):
     
     else:
         return redirect('/login')
+
+
+@main.route('/logout/<string:username>/<string:session>', methods=['GET', 'POST'])
+def logout(username, session):
+    
+    global logged_in
+
+    if username in logged_in and (logged_in[username]['object'].session_id == session):
+        logged_in.pop(username)
+        # print("logged out")
+        return redirect('/')
+    else:
+        return redirect('/login')
+
