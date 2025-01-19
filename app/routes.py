@@ -149,3 +149,26 @@ def logout(username, session):
 def apitest (apikey):
     return {"data":"working Fine Connected to the api server"}
 
+
+@main.route("/api/<string:apikey>/listdevices", methods=['GET', 'POST'])
+def listdevices(apikey):
+    global api_loggers
+    global mydb
+    if not(apikey in api_loggers):
+        try:
+            query = "select username from users where api_key = '{}'".format(apikey)
+            mydb.cursor.execute(query)
+            username = mydb.cursor.fetchall()
+            username = username[0][0]
+            apiuser = person.user(username, "dummy")
+            apiuser.authenticated = True
+            devices_list = apiuser.get_devices()
+            api_loggers[apikey] = {"object" : apiuser}
+            return jsonify(devices_list)
+        except Exception as e:
+            print (e)
+            return jsonify({"data":"Oops Looks like api is not correct"})
+    
+    else:
+        data = api_loggers[apikey]["object"].get_devices()
+        return jsonify (data)
