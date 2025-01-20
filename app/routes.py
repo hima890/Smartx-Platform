@@ -1,6 +1,7 @@
-import json, database, base64, os, binascii
+import json, base64, os, binascii
 from flask import Blueprint, render_template, jsonify, redirect, request
 from .users import user
+from .database import db
 from dotenv import load_dotenv
 from random import choice
 from datetime import datetime
@@ -15,7 +16,7 @@ logged_in = {}
 api_loggers = {}
 
 # Database connect
-mydb = database.db(
+mydb = db(
     os.environ.get('DBUSER'),
     os.environ.get('DBHOST'),
     os.environ.get('DBPASSWORD'),
@@ -25,18 +26,18 @@ mydb = database.db(
 
 @main.route('/')
 def home():
-    return render_template('home.html', title='HOME')
+    return render_template('index.html', title='HOME')
 
 
 @main.route("/login", methods=['GET', 'POST'])
 def login():
     error = ""
     if request.method == 'POST':
-        user = user.user(request.form['username'], request.form['password'])
-        if user.authenticated:
-            user.session_id = str(binascii.b2a_hex(os.urandom(15)))
-            logged_in[user.username] = {"object": user}
-            return redirect('/overview/{}/{}'.format(request.form['username'], user.session_id))
+        user_instance = user(request.form['username'], request.form['password'])
+        if user_instance.authenticated:
+            user_instance.session_id = str(binascii.b2a_hex(os.urandom(15)))
+            logged_in[user_instance.username] = {"object": user_instance}
+            return redirect('/overview/{}/{}'.format(request.form['username'], user_instance.session_id))
         else:
             error = "invalid Username or Passowrd"
        

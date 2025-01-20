@@ -1,0 +1,34 @@
+/* Center the form and make the background blur */
+  .contact-form-container {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Transparent black background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1050; /* Make sure the form appears above other content */
+  }
+
+  .contact-form-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+  }
+
+  /* Styles for the overlay that blurs the background */
+  .overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark semi-transparent overlay */
+    z-index: 1040; /* Right below the form */
+  }
+

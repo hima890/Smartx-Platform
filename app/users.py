@@ -1,9 +1,8 @@
 import hashlib, os
-from database import db
 from passlib.hash import sha512_crypt as sha
 from datetime import datetime
 from dotenv import load_dotenv
-
+from .database import db
 
 # Load environment variables
 load_dotenv("./.env")
