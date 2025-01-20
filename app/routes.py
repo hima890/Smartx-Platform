@@ -28,6 +28,10 @@ mydb = db(
 def home():
     return render_template('index.html', title='HOME')
 
+@main.route('/aboutus')
+def about():
+    return render_template('aboutus.html')
+
 
 @main.route("/login", methods=['GET', 'POST'])
 def login():
