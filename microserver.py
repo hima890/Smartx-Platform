@@ -38,7 +38,7 @@ print(f"Encoded message: {encoded_message}")
 # Example of decoding data
 decoded_data = decode(encoded_message)
 print(f"Decoded data: {decoded_data}")
-""""
+"""
 import json, base64
 import urllib.request
 from random import choice
