@@ -1,177 +1,445 @@
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
     <title>SmartX</title>
-    <meta property="og:description" content="Create your free account to monitor and configure your room's environment using ESP32. Get live updates and downloadable code.">
-    <meta name="twitter:image" content="{{ url_for('static', filename='img/Apex_1734855786244.png') }}">
-    <meta name="twitter:title" content="Monitor and Control Your IoT Devices with Ease">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:description" content="Create your free account to monitor and configure your room's environment using ESP32. Get live updates and downloadable code.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Monitor and Control Your IoT Devices with Ease">
-    <meta property="og:image" content="{{ url_for('static', filename='img/Apex_1734855786244.png') }}">
-    <meta name="description" content="Explore our innovative IoT platform that empowers you to monitor and control your environment effortlessly. Sign up for free, configure your ESP32, and experience real-time data insights with a user-friendly dashboard. Perfect for beginners and enthusiasts alike!">
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/android-chrome-512x512.png">
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Cookie.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/aos.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Articale-List-With-Image-Zoom.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Articles-Cards-images.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Navbar-Right-Links-icons.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Pretty-Footer-.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main_2.css') }}">
-</head>
+    <meta
+      property="og:description"
+      content="Create your free account to monitor and configure your room's environment using ESP32. Get live updates and downloadable code."
+    />
+    <meta
+      name="twitter:image"
+      content="{{ url_for('static', filename='img/Apex_1734855786244.png') }}"
+    />
+    <meta
+      name="twitter:title"
+      content="Monitor and Control Your IoT Devices with Ease"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:description"
+      content="Create your free account to monitor and configure your room's environment using ESP32. Get live updates and downloadable code."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Monitor and Control Your IoT Devices with Ease"
+    />
+    <meta
+      property="og:image"
+      content="{{ url_for('static', filename='img/Apex_1734855786244.png') }}"
+    />
+    <meta
+      name="description"
+      content="Explore our innovative IoT platform that empowers you to monitor and control your environment effortlessly. Sign up for free, configure your ESP32, and experience real-time data insights with a user-friendly dashboard. Perfect for beginners and enthusiasts alike!"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="assets/img/android-chrome-512x512.png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/Cookie.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='fonts/font-awesome.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/aos.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/Articale-List-With-Image-Zoom.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/Articles-Cards-images.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/Navbar-Right-Links-icons.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/Pretty-Footer-.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main_2.css') }}"
+    />
+  </head>
 
-<body>
-    <nav class="navbar navbar-expand-md bg-body py-3" style="border-bottom: 1px solid #a48c8c ;">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="{{ url_for('main.home') }}"><span style="font-size: 30px;"><strong><span style="color: rgb(30, 30, 30);">Smart</span><span style="color: rgb(0, 120, 215);">X</span></strong></span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-2">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="{{ url_for('main.home') }}"><span style="color: rgb(33, 37, 41);">Home</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('main.about') }}"><span style="color: rgba(0, 0, 0, 0.8);">About</span></a></li>
-                </ul>
-                <a class="btn btn-primary ms-md-2" role="button" href="{{ url_for('main.login') }}" style="background: #dddddddd;border-color: #dddddddd;color: var(--bs-primary);">Login</a>
-                <a class="btn btn-primary" type="button" style="margin-left: 10px;" href="{{ url_for('main.login') }}">Sign up</a>
-            </div>
+  <body>
+    <nav
+      class="navbar navbar-expand-md bg-body py-3"
+      style="border-bottom: 1px solid #a48c8c"
+    >
+      <div class="container">
+        <a
+          class="navbar-brand d-flex align-items-center"
+          href="{{ url_for('main.home') }}"
+          ><span style="font-size: 30px"
+            ><strong
+              ><span style="color: rgb(30, 30, 30)">Smart</span
+              ><span style="color: rgb(0, 120, 215)">X</span></strong
+            ></span
+          ></a
+        ><button
+          data-bs-toggle="collapse"
+          class="navbar-toggler"
+          data-bs-target="#navcol-2"
+        >
+          <span class="visually-hidden">Toggle navigation</span
+          ><span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navcol-2">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('main.home') }}"
+                ><span style="color: rgb(33, 37, 41)">Home</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.about') }}"
+                ><span style="color: rgba(0, 0, 0, 0.8)">About</span></a
+              >
+            </li>
+          </ul>
+          <a
+            class="btn btn-primary ms-md-2"
+            role="button"
+            href="{{ url_for('main.login') }}"
+            style="
+              background: #dddddddd;
+              border-color: #dddddddd;
+              color: var(--bs-primary);
+            "
+            >Login</a
+          >
+          <a
+            class="btn btn-primary"
+            type="button"
+            style="margin-left: 10px"
+            href="{{ url_for('main.login') }}"
+            >Sign up</a
+          >
         </div>
+      </div>
     </nav>
-    <div class="container py-4 py-xl-5" data-aos="fade-up" data-aos-duration="150" data-aos-delay="100">
-        <div class="row gy-4 gy-md-0">
-            <div class="col-md-6">
-                <div class="p-xl-5 m-xl-5"><img class="rounded img-fluid w-100 fit-cover" style="min-height: 300px;" src="{{ url_for('static', filename='images/hader.png') }}"></div>
-            </div>
-            <div class="col-md-6 d-md-flex align-items-md-center">
-                <div style="max-width: 350px;">
-                    <h2 class="text-uppercase fw-bold"><strong>Monitor Your <span style="color: rgb(0, 120, 215);">Space</span>, Anytime, Anywhere</strong></h2>
-                    <p class="my-3">Empowering You to Monitor and Control Your Environment with Ease.</p><a class="btn btn-primary btn-lg me-2" role="button" href="#">Get Started</a><a class="btn btn-outline-primary btn-lg" role="button" href="#">Learn More</a>
-                </div>
-            </div>
+    <div
+      class="container py-4 py-xl-5"
+      data-aos="fade-up"
+      data-aos-duration="150"
+      data-aos-delay="100"
+    >
+      <div class="row gy-4 gy-md-0">
+        <div class="col-md-6">
+          <div class="p-xl-5 m-xl-5">
+            <img
+              class="rounded img-fluid w-100 fit-cover"
+              style="min-height: 300px"
+              src="{{ url_for('static', filename='images/hader.png') }}"
+            />
+          </div>
         </div>
+        <div class="col-md-6 d-md-flex align-items-md-center">
+          <div style="max-width: 350px">
+            <h2 class="text-uppercase fw-bold">
+              <strong
+                >Monitor Your
+                <span style="color: rgb(0, 120, 215)">Space</span>, Anytime,
+                Anywhere</strong
+              >
+            </h2>
+            <p class="my-3">
+              Empowering You to Monitor and Control Your Environment with Ease.
+            </p>
+            <a class="btn btn-primary btn-lg me-2" role="button" href="#"
+              >Get Started</a
+            ><a class="btn btn-outline-primary btn-lg" role="button" href="#"
+              >Learn More</a
+            >
+          </div>
+        </div>
+      </div>
     </div>
     <div class="container">
-        <section>
-            <h1 style="text-align: center;"></h1>
-        </section>
+      <section>
+        <h1 style="text-align: center"></h1>
+      </section>
     </div>
-    <div class="container py-4 py-xl-5" data-aos="fade-up" data-aos-duration="100" data-aos-delay="150">
-        <div class="row mb-5">
-            <div class="col-md-8 col-xl-6 text-center mx-auto">
-                <h2>Why&nbsp;<span style="color: rgb(0, 119, 182);">Chose Us?</span></h2>
-                <p class="w-lg-50">Empowering your journey with unparalleled reliability, innovative solutions, and exceptional support—because you deserve the best</p>
-            </div>
+    <div
+      class="container py-4 py-xl-5"
+      data-aos="fade-up"
+      data-aos-duration="100"
+      data-aos-delay="150"
+    >
+      <div class="row mb-5">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+          <h2>
+            Why&nbsp;<span style="color: rgb(0, 119, 182)">Chose Us?</span>
+          </h2>
+          <p class="w-lg-50">
+            Empowering your journey with unparalleled reliability, innovative
+            solutions, and exceptional support—because you deserve the best
+          </p>
         </div>
-        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            <div class="col">
-                <div class="card"><img class="card-img-top w-100 d-block fit-cover" style="height: 200px;" src="{{ url_for('static', filename='img/Infographics_Update_.width-1000.jpg') }}">
-                    <div class="card-body p-4">
-                        <p class="text-primary card-text mb-0"></p>
-                        <h4 class="card-title">Real-Time Monitoring</h4>
-                        <p class="card-text">Track your room's temperature, humidity, and air quality in real-time with visual data.</p>
-                    </div>
-                </div>
+      </div>
+      <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+        <div class="col">
+          <div class="card">
+            <img
+              class="card-img-top w-100 d-block fit-cover"
+              style="height: 200px"
+              src="{{ url_for('static', filename='img/Infographics_Update_.width-1000.jpg') }}"
+            />
+            <div class="card-body p-4">
+              <p class="text-primary card-text mb-0"></p>
+              <h4 class="card-title">Real-Time Monitoring</h4>
+              <p class="card-text">
+                Track your room's temperature, humidity, and air quality in
+                real-time with visual data.
+              </p>
             </div>
-            <div class="col">
-                <div class="card"><img class="card-img-top w-100 d-block fit-cover" style="height: 200px;" src="{{ url_for('static', filename='img/Customizable-customination-icon-EPS10-by-Kanggraphic-580x386.jpg') }}">
-                    <div class="card-body p-4">
-                        <h4 class="card-title">Customizable Configurations</h4>
-                        <p class="card-text">Set thresholds, alerts, and device configurations easily via the dashboard.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card"><img class="card-img-top w-100 d-block fit-cover" style="height: 200px;" src="{{ url_for('static', filename='img/203748747-woman-write-code-concept.jpg') }}">
-                    <div class="card-body p-4">
-                        <h4 class="card-title">Code Generation</h4>
-                        <p class="card-text">Automatically generate and download the ESP32 code customized for your environment.</p>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="col">
+          <div class="card">
+            <img
+              class="card-img-top w-100 d-block fit-cover"
+              style="height: 200px"
+              src="{{ url_for('static', filename='img/Customizable-customination-icon-EPS10-by-Kanggraphic-580x386.jpg') }}"
+            />
+            <div class="card-body p-4">
+              <h4 class="card-title">Customizable Configurations</h4>
+              <p class="card-text">
+                Set thresholds, alerts, and device configurations easily via the
+                dashboard.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <img
+              class="card-img-top w-100 d-block fit-cover"
+              style="height: 200px"
+              src="{{ url_for('static', filename='img/203748747-woman-write-code-concept.jpg') }}"
+            />
+            <div class="card-body p-4">
+              <h4 class="card-title">Code Generation</h4>
+              <p class="card-text">
+                Automatically generate and download the ESP32 code customized
+                for your environment.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="article-list">
-        <div class="container" data-aos="fade-up" data-aos-duration="100" data-aos-delay="150">
-            <div class="intro">
-                <h2 class="text-center" style="color: rgb(33,37,41);">Latest <span style="color: rgb(0, 119, 182);">Articles</span></h2>
-                <p class="text-center">Learn how to bring your IoT ideas to life with simple, engaging projects that are perfect for getting started.</p>
-            </div>
-            <div class="row articles">
-                <div class="col-sm-6 col-md-4 item">
-                    <div class="zoomin frame" style="width:100%;height:236px;border: 1px solid rgb(46 74 205);"><img style="width:100%;height:236px;" src="{{ url_for('static', filename='img/How_Io_T_Sensors_at_School_Can_Help_Students_Breathe_Easier_69d0f37d74.png') }}"></div>
-                    <h3 class="name"><strong><span style="color: rgb(24, 30, 37);">How IoT Sensors at School Can Help Students Breathe Easier</span></strong></h3>
-                    <p class="description" style="text-align: left;"><span style="color: rgb(57, 71, 86);">Indoor air quality (IAQ) is a crucial aspect of maintaining a healthy and conducive learning environment in schools. Poor IAQ, characterized by elevated levels of volatile organic compounds (VOCs), carbon dioxide (CO2), and particulate matter (PM), can have detrimental effects on the health, comfort, and academic performance of students and staff. Fortunately, technological advancements, particularly with Internet of Things (IoT) sensors, offer promising solutions to monitor and improve IAQ in educational settings h</span></p><a class="action" href="https://www.iotforall.com/iot-sensors-air-quality-schools"><i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-                <div class="col-sm-6 col-md-4 item">
-                    <div class="zoomin frame" style="width:100%;height:236px;border: 1px solid rgb(46 74 205);"><img style="width:100%;height:236px;" src="{{ url_for('static', filename='img/How-to-become-IOT-Developer.webp') }}"></div>
-                    <h3 class="name">How to Become an IOT Developer in 2024</h3>
-                    <p class="description" style="text-align: left;">Imagine if the machinery on a factory floor could communicate with one another to increase production efficiency, or if your home could maintain a suitable temperature all the time. The Internet of Things (IoT) is capable of this.<br>How-to-become-IOT-Developer<br>IoT developers have been the engine behind IoT. All of this is made possible by the intelligent, networked systems they create and construct. Maybe you've always been drawn to technology and want to be an Internet of Things developer so you can control the future.</p><a class="action" href="https://www.geeksforgeeks.org/how-to-become-an-iot-developer"><i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-                <div class="col-sm-6 col-md-4 item">
-                    <div class="zoomin frame" style="width:100%;height:236px;border: 1px solid rgb(46 74 205);"><img style="width:100%;height:236px;" src="{{ url_for('static', filename='img/1440x-_08083ed07bc765259a3da0c40123f0d9651602e6.webp') }}"></div>
-                    <h3 class="name">How to Create an IoT App: Internet of Things App Development Tips</h3>
-                    <p class="description" style="text-align: left;"><span style="color: rgb(40, 40, 40);">“Internet of Things” (IoT) describes a network of linked physical objects, such as cars, appliances, and other household items, which are equipped with electronics, software, sensors, and connectivity to enable data collection and exchange. Usually when hearing “IoT” people think about smart connected devices that make our lives easier, however there are also Internet of Medical Things and industrial kinds of IoT that help automate such areas as Construction, Manufacturing, Oil &amp; Gas and other industries.</span></p><a class="action" href="#"><i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
+      <div
+        class="container"
+        data-aos="fade-up"
+        data-aos-duration="100"
+        data-aos-delay="150"
+      >
+        <div class="intro">
+          <h2 class="text-center" style="color: rgb(33, 37, 41)">
+            Latest <span style="color: rgb(0, 119, 182)">Articles</span>
+          </h2>
+          <p class="text-center">
+            Learn how to bring your IoT ideas to life with simple, engaging
+            projects that are perfect for getting started.
+          </p>
         </div>
+        <div class="row articles">
+          <div class="col-sm-6 col-md-4 item">
+            <div
+              class="zoomin frame"
+              style="
+                width: 100%;
+                height: 236px;
+                border: 1px solid rgb(46 74 205);
+              "
+            >
+              <img
+                style="width: 100%; height: 236px"
+                src="{{ url_for('static', filename='img/How_Io_T_Sensors_at_School_Can_Help_Students_Breathe_Easier_69d0f37d74.png') }}"
+              />
+            </div>
+            <h3 class="name">
+              <strong
+                ><span style="color: rgb(24, 30, 37)"
+                  >How IoT Sensors at School Can Help Students Breathe
+                  Easier</span
+                ></strong
+              >
+            </h3>
+            <p class="description" style="text-align: left">
+              <span style="color: rgb(57, 71, 86)"
+                >Indoor air quality (IAQ) is a crucial aspect of maintaining a
+                healthy and conducive learning environment in schools. Poor IAQ,
+                characterized by elevated levels of volatile organic compounds
+                (VOCs), carbon dioxide (CO2), and particulate matter (PM), can
+                have detrimental effects on the health, comfort, and academic
+                performance of students and staff. Fortunately, technological
+                advancements, particularly with Internet of Things (IoT)
+                sensors, offer promising solutions to monitor and improve IAQ in
+                educational settings h</span
+              >
+            </p>
+            <a
+              class="action"
+              href="https://www.iotforall.com/iot-sensors-air-quality-schools"
+              ><i class="fa fa-arrow-circle-right"></i
+            ></a>
+          </div>
+          <div class="col-sm-6 col-md-4 item">
+            <div
+              class="zoomin frame"
+              style="
+                width: 100%;
+                height: 236px;
+                border: 1px solid rgb(46 74 205);
+              "
+            >
+              <img
+                style="width: 100%; height: 236px"
+                src="{{ url_for('static', filename='img/How-to-become-IOT-Developer.webp') }}"
+              />
+            </div>
+            <h3 class="name">How to Become an IOT Developer in 2024</h3>
+            <p class="description" style="text-align: left">
+              Imagine if the machinery on a factory floor could communicate with
+              one another to increase production efficiency, or if your home
+              could maintain a suitable temperature all the time. The Internet
+              of Things (IoT) is capable of this.<br />How-to-become-IOT-Developer<br />IoT
+              developers have been the engine behind IoT. All of this is made
+              possible by the intelligent, networked systems they create and
+              construct. Maybe you've always been drawn to technology and want
+              to be an Internet of Things developer so you can control the
+              future.
+            </p>
+            <a
+              class="action"
+              href="https://www.geeksforgeeks.org/how-to-become-an-iot-developer"
+              ><i class="fa fa-arrow-circle-right"></i
+            ></a>
+          </div>
+          <div class="col-sm-6 col-md-4 item">
+            <div
+              class="zoomin frame"
+              style="
+                width: 100%;
+                height: 236px;
+                border: 1px solid rgb(46 74 205);
+              "
+            >
+              <img
+                style="width: 100%; height: 236px"
+                src="{{ url_for('static', filename='img/1440x-_08083ed07bc765259a3da0c40123f0d9651602e6.webp') }}"
+              />
+            </div>
+            <h3 class="name">
+              How to Create an IoT App: Internet of Things App Development Tips
+            </h3>
+            <p class="description" style="text-align: left">
+              <span style="color: rgb(40, 40, 40)"
+                >“Internet of Things” (IoT) describes a network of linked
+                physical objects, such as cars, appliances, and other household
+                items, which are equipped with electronics, software, sensors,
+                and connectivity to enable data collection and exchange. Usually
+                when hearing “IoT” people think about smart connected devices
+                that make our lives easier, however there are also Internet of
+                Medical Things and industrial kinds of IoT that help automate
+                such areas as Construction, Manufacturing, Oil &amp; Gas and
+                other industries.</span
+              >
+            </p>
+            <a class="action" href="#"
+              ><i class="fa fa-arrow-circle-right"></i
+            ></a>
+          </div>
+        </div>
+      </div>
     </div>
-    <footer data-aos="fade-up" data-aos-duration="100" data-aos-delay="150" style="background: #0f4a6a;">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 footer-navigation">
-                <h3><a href="{{ url_for('main.home') }}}"><strong>SmartX</strong></a></h3>
-                <p class="links"><a href="{{ url_for('main.home') }}">Home</a><strong> · </strong><a href="#"></a><a href="#"></a><strong>&nbsp;</strong><a href="{{ url_for('main.home') }}">About</a><strong> · </strong>
-                    <a id="contactUsButton"  type="button">Contact Us</a>
-                    <p class="company-name">SmartX © 2025</p>
-            </div>
-            <div class="col-sm-6 col-md-4 footer-contacts">
-                <div><span class="fa fa-map-marker footer-contacts-icon"> </span>
-                    <p><span class="new-line-span">21 Revolution Street</span> White Nile, Khartom</p>
-                </div>
-                <div><i class="fa fa-phone footer-contacts-icon"></i>
-                    <p class="footer-center-info email text-start"> +249 111111111</p>
-                </div>
-                <div><i class="fa fa-envelope footer-contacts-icon"></i>
-                    <p> <a href="#" target="_blank"><span style="color: rgb(255, 255, 255);">support@smartx.com</span></a></p>
-                </div>
-            </div>
-            <div class="col-md-4 footer-about">
-                <h4>About the company</h4>
-                <p>At our core, we bring innovative IoT solutions to life.&nbsp;<br>Connecting your devices seamlessly to create smarter environments.&nbsp;<br>Empowering you to monitor, control, and innovate with ease.</p>
-                <div class="social-links social-icons"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-github"></i></a></div>
-            </div>
+    <footer
+      data-aos="fade-up"
+      data-aos-duration="100"
+      data-aos-delay="150"
+      style="background: #0f4a6a"
+    >
+      <div class="row">
+        <div class="col-sm-6 col-md-4 footer-navigation">
+          <h3>
+            <a href="{{ url_for('main.home') }}}"><strong>SmartX</strong></a>
+          </h3>
+          <p class="links">
+            <a href="{{ url_for('main.home') }}">Home</a><strong> · </strong
+            ><a href="#"></a><a href="#"></a><strong>&nbsp;</strong
+            ><a href="{{ url_for('main.home') }}">About</a><strong> · </strong>
+          </p>
+
+          <p class="company-name">SmartX © 2025</p>
         </div>
+        <div class="col-sm-6 col-md-4 footer-contacts">
+          <div>
+            <span class="fa fa-map-marker footer-contacts-icon"> </span>
+            <p>
+              <span class="new-line-span">21 Revolution Street</span> White
+              Nile, Khartom
+            </p>
+          </div>
+          <div>
+            <i class="fa fa-phone footer-contacts-icon"></i>
+            <p class="footer-center-info email text-start">+249 111111111</p>
+          </div>
+          <div>
+            <i class="fa fa-envelope footer-contacts-icon"></i>
+            <p>
+              <a href="#" target="_blank"
+                ><span style="color: rgb(255, 255, 255)"
+                  >support@smartx.com</span
+                ></a
+              >
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 footer-about">
+          <h4>About the company</h4>
+          <p>
+            At our core, we bring innovative IoT solutions to life.&nbsp;<br />Connecting
+            your devices seamlessly to create smarter environments.&nbsp;<br />Empowering
+            you to monitor, control, and innovate with ease.
+          </p>
+          <div class="social-links social-icons">
+            <a href="#"><i class="fa fa-facebook"></i></a
+            ><a href="#"><i class="fa fa-twitter"></i></a
+            ><a href="#"><i class="fa fa-linkedin"></i></a
+            ><a href="#"><i class="fa fa-github"></i></a>
+          </div>
+        </div>
+      </div>
     </footer>
-    <!-- Contact Us Form (Hidden by Default) -->
-    <section id="contact-us" class="contact-form-container">
-        <div class="contact-form-content">
-        <h2 class="text-center mb-4">Contact Us</h2>
-        <p class="text-center mb-5">We'd love to hear from you! Fill out the form below and we'll get back to you as soon as possible.</p>
-        <form id="contactForm" autocomplete="on" method="post" action="/contact-us/">
-            <div id="flashMessageContainer" class="container mt-4"></div>
-            <!-- Flash Message Container -->
-            <div class="form-group mb-3">
-            <label for="name">Your Name</label>
-            <input name="name" type="text" class="form-control" id="name" placeholder="Enter your name" required>
-            </div>
-            <div class="form-group mb-3">
-            <label for="email">Your Email</label>
-            <input name="email" type="email" class="form-control" id="email" placeholder="Enter your email" required>
-            </div>
-            <div class="form-group mb-3">
-            <label for="message">Your Message</label>
-            <textarea name="message" class="form-control" id="message" rows="5" placeholder="Write your message here..." required></textarea>
-            </div>
-            <div class="text-center">
-            <button type="submit" class="btn btn-primary">Send Message</button>
-            </div>
-        </form>
-        <button id="closeForm" class="btn btn-secondary mt-4">Close</button>
-        </div>
-    </section>
-    
+
+
     <!-- Background Overlay (Hidden by Default) -->
     <div id="overlay" class="overlay"></div>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
@@ -179,6 +447,5 @@
     <script src="{{ url_for('static', filename='JS/bs-init.js') }}"></script>
     <script src="{{ url_for('static', filename='JS/main_2.js') }}"></script>
     <script src="{{ url_for('static', filename='JS/script.js') }}"></script>
-</body>
-
+  </body>
 </html>

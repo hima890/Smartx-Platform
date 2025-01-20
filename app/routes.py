@@ -2,10 +2,11 @@ import json, base64, os, binascii
 from flask import Blueprint, render_template, jsonify, redirect, request
 from .users import user
 from .database import db
+from .models import Message
 from dotenv import load_dotenv
 from random import choice
 from datetime import datetime
-
+from . import db as handler
 
 # Load environment variables
 load_dotenv("./.env")

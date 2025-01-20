@@ -25,7 +25,7 @@ document.getElementById('contactForm').addEventListener('submit', function (even
     const contactForm = document.getElementById('contact-us');
     const overlay = document.getElementById('overlay');
 
-    fetch('/contact-us/', {
+    fetch('/contact_us', {
         method: 'POST',
         body: formData
     })
