@@ -46,11 +46,28 @@ app.run(debug=True)
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+from redis import Redis
+
 
 
 # Initialize extensions
 db = SQLAlchemy()
 migrate = Migrate()
+
+# Rate limiter setup
+RD_PREFIX = "smx"
+RD_HOST = "127.0.0.1:6379"
+RD_DB_NU = 1
+RD_PASSWORD = "majoja12345@@"
+
+limiter = Limiter(
+  get_remote_address,
+  default_limits=["200 per day", "20 per hour"],
+  storage_uri = f"redis://{RD_PASSWORD}@{RD_HOST}/{RD_DB_NU}",
+)
+
 
 
 def create_app():
@@ -60,7 +77,8 @@ def create_app():
     # Initialize extensions with the app
     db.init_app(app)
     migrate.init_app(app, db)
-
+    limiter.init_app(app)
+  
     # Create all tables in the database (if they do not exist)
     with app.app_context():
         db.create_all()
