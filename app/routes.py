@@ -19,6 +19,7 @@ from dotenv import load_dotenv
 from random import choice
 from datetime import datetime
 from . import db as handler
+from . import limiter
 
 # Load environment variables
 load_dotenv("./.env")
@@ -36,19 +37,21 @@ mydb = db(
     os.environ.get('DBNAME')
 )
 
-
+@limiter.limit("50 per minute")
 @main.route('/')
 def home():
     """Render the home page."""
     return render_template('index.html', title='HOME')
 
 
+@limiter.limit("50 per minute")
 @main.route('/aboutus')
 def about():
     """Render the 'About Us' page."""
     return render_template('aboutus.html')
 
 
+@limiter.limit("50 per minute")
 @main.route("/login", methods=['GET', 'POST'])
 def login():
     """
@@ -68,6 +71,7 @@ def login():
     return render_template('Login.htm', error=error)
 
 
+@limiter.limit("50 per minute")
 @main.route('/device1/<string:username>/<string:session>', methods=["GET", "POST"])
 def Dashoboard():
     """
@@ -85,6 +89,7 @@ def Dashoboard():
     return render_template('device_dashboard.htm', title='Dashboard', user=user, devices=devices)
 
 
+@limiter.limit("50 per minute")
 @main.route('/overview/<string:username>/<string:session>', methods=['GET', 'POST'])
 def overview(username, session):
     """
@@ -109,6 +114,7 @@ def overview(username, session):
         return redirect('/login')
 
 
+@limiter.limit("50 per minute")
 @main.route('/apisettings/<string:username>/<string:session>', methods=['GET', 'POST'])
 def apisettings(username, session):
     """
@@ -133,6 +139,7 @@ def apisettings(username, session):
         return redirect('/login')
 
 
+@limiter.limit("50 per minute")
 @main.route('/profile/<string:username>/<string:session>', methods=['GET', 'POST'])
 def profile(username, session):
     """
@@ -162,6 +169,7 @@ def profile(username, session):
         return redirect('/login')
 
 
+@limiter.limit("50 per minute")
 @main.route('/logout/<string:username>/<string:session>', methods=['GET', 'POST'])
 def logout(username, session):
     """
@@ -177,6 +185,7 @@ def logout(username, session):
         return redirect('/login')
 
 
+@limiter.limit("50 per minute")
 @main.route("/api/<string:apikey>/test", methods=["GET", "POST"])
 def apitest(apikey):
     """
@@ -187,6 +196,7 @@ def apitest(apikey):
 
 
 
+@limiter.limit("50 per minute")
 @main.route("/api/<string:apikey>/listdevices", methods=['GET', 'POST'])
 def listdevices(apikey):
     """
@@ -201,8 +211,28 @@ def listdevices(apikey):
     Returns:
         JSON response containing a list of devices or an error message.
     """
-    # Function logic here...
+    global api_loggers
+    global mydb
+    if not(apikey in api_loggers):
+        try:
+            query = "select username from users where api_key = '{}'".format(apikey)
+            mydb.cursor.execute(query)
+            username = mydb.cursor.fetchall()
+            username = username[0][0]
+            apiuser = person.user(username, "dummy")
+            apiuser.authenticated = True
+            devices_list = apiuser.get_devices()
+            api_loggers[apikey] = {"object" : apiuser}
+            return jsonify(devices_list)
+        except Exception as e:
+            print (e)
+            return jsonify({"data":"Oops Looks like api is not correct"})
+    
+    else:
+        data = api_loggers[apikey]["object"].get_devices()
+        return jsonify (data)
 
+@limiter.limit("50 per minute")
 @main.route('/api/<string:apikey>/deviceinfo/<string:deviceID>', methods=['GET', 'POST'])
 def device_info(apikey, deviceID):
     """
@@ -242,6 +272,7 @@ def device_info(apikey, deviceID):
 
 randlist = [i for i in range(0, 100)]
 
+@limiter.limit("50 per minute")
 @main.route('/api/<string:apikey>/fieldstat/<string:fieldname>', methods=['GET', 'POST'])
 def fieldstat (apikey, fieldname):
     """
@@ -279,6 +310,7 @@ def fieldstat (apikey, fieldname):
         return jsonify (data)
 
 
+@limiter.limit("50 per minute")
 @main.route('/api/<string:apikey>/devicestat/<string:fieldname>/<string:deviceID>', methods=['GET', 'POST'])
 def devicestat (apikey, fieldname, deviceID):
     """
@@ -317,6 +349,7 @@ def devicestat (apikey, fieldname, deviceID):
         return jsonify (data)
 
 
+@limiter.limit("50 per minute")
 @main.route('/api/<string:apikey>/update/<string:data>', methods=['GET','POST'])
 def update_values(apikey, data):
     """
@@ -356,6 +389,7 @@ def update_values(apikey, data):
         return jsonify({"data":"Oops Looks like api is not correct"})
 
 
+@limiter.limit("50 per minute")
 @main.route("/api/<string:apikey>/temperature", methods=["GET", "POST"])
 def get_temperature(apikey):
     """
@@ -376,6 +410,7 @@ def get_temperature(apikey):
     response = [time, randData]
     return jsonify(response)
 
+@limiter.limit("50 per minute")
 @main.route("/api/<string:apikey>/moisture", methods=["GET", "POST"])
 def get_moisture(apikey):
     """
@@ -396,6 +431,7 @@ def get_moisture(apikey):
     response = [time, randData]
     return jsonify(response)
 
+@limiter.limit("50 per minute")
 @main.route("/api/<string:apikey>/humidity", methods=["GET", "POST"])
 def get_humidity(apikey):
     """
@@ -416,6 +452,7 @@ def get_humidity(apikey):
     response = [time, randData]
     return jsonify(response)
 
+@limiter.limit("50 per minute")
 @main.route("/api/<string:apikey>/light", methods=["GET", "POST"])
 def get_light(apikey):
     """
