@@ -50,7 +50,7 @@
     obj2.createGraph();
     
     function requestTemp() {
-        var requests = $.get('/api/kuchnhi/temperature');
+        var requests = $.get('/api/hima/temperature');
         var tm = requests.done(function (result){
             
             Xdata_temp.push(result[0]);
@@ -73,7 +73,7 @@
     }
 
     function requestHumidity() {
-        var requests = $.get('/api/kuchnhi/moisture');
+        var requests = $.get('/api/hima/moisture');
         var tm = requests.done(function (result){
             
             Xdata_moist.push(result[0]);
@@ -93,7 +93,7 @@
 
 
     function requestMoisture() {
-        var requests = $.get('/api/kuchnhi/humidity');
+        var requests = $.get('/api/hima/humidity');
         var tm = requests.done(function (result){
             
             Xdata_humid.push(result[0]);
@@ -113,7 +113,7 @@
 
 
     function requestLight() {
-        var requests = $.get('/api/kuchnhi/light');
+        var requests = $.get('/api/hima/light');
         var tm = requests.done(function (result){
             
             Xdata_light.push(result[0]);

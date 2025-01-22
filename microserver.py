@@ -44,6 +44,8 @@ import urllib.request
 from random import choice
 import time
 
+
+
 def encode(data):
     data = json.dumps(data)
     message_bytes = data.encode('ascii')
@@ -65,7 +67,7 @@ while 1:
     try:
         mydata = ['Rosegarden', 'ARMS12012', choice(randlist), choice(randlist), choice(randlist), choice(randlist)]
         a = encode(mydata)
-        url = 'http://127.0.0.1:5000/api/abhikuchnhihai/update/{}'.format(a)
+        url = 'http://127.0.0.1:5000/api/hima/update/{}'.format(a)
         response = urllib.request.urlopen(url)
         print("[data]: "+ str(mydata))
         print("[Encoded Value]: "+ a)
@@ -75,3 +77,4 @@ while 1:
         time.sleep(2)
     except:
         print("Website Not online")
+        time.sleep(2)

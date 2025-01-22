@@ -4,8 +4,8 @@ var devicename = "ARMS12012";
 
 function getdevice(){
     var requests = $.get('/api/' + apikey + '/deviceinfo/' + devicename);
-    
     var tm = requests.done(function (result){
+        console.log("API Response:", result[3], result[4], result[5], result[6]);
         var today = new Date();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         addData(temp_chart, time, result[3]);
@@ -135,6 +135,7 @@ var light_chart = new Chart(light, {
 
 
 function addData(chart, label, data) {
+    // console.log("Adding data to chart:", chart, label, data);
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
         dataset.data.push(data);

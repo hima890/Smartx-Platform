@@ -14,7 +14,6 @@ import binascii
 from flask import Blueprint, render_template, jsonify, redirect, request
 from .users import user
 from .database import db
-from .models import Message
 from dotenv import load_dotenv
 from random import choice
 from datetime import datetime
@@ -219,7 +218,7 @@ def listdevices(apikey):
             mydb.cursor.execute(query)
             username = mydb.cursor.fetchall()
             username = username[0][0]
-            apiuser = person.user(username, "dummy")
+            apiuser = user("hima", "dummy")
             apiuser.authenticated = True
             devices_list = apiuser.get_devices()
             api_loggers[apikey] = {"object" : apiuser}
@@ -256,17 +255,23 @@ def device_info(apikey, deviceID):
             mydb.cursor.execute(query)
             username = mydb.cursor.fetchall()
             username = username[0][0]
-            apiuser = user.user(username, "dummy")
+            apiuser = user(username, "dummy")
             apiuser.authenticated = True
-            devices_list = apiuser.get_devices()
+            data = apiuser.dev_info(deviceID)
             api_loggers[apikey] = {"object" : apiuser}
-            return jsonify(devices_list)
+            # This part need fixed
+            data = list(data)
+            data[2] = "Rosegarden"
+            return jsonify(data)
         except Exception as e:
             print (e)
             return jsonify({"data":"Oops Looks like api is not correct"})
     
     else:
-        data = api_loggers[apikey]["object"].get_devices()
+        data = api_loggers[apikey]["object"].dev_info(deviceID)
+        # This part need fixed
+        data = list(data)
+        data[2] = "Rosegarden"
         return jsonify (data)
 
 
@@ -296,7 +301,7 @@ def fieldstat (apikey, fieldname):
             mydb.cursor.execute(query)
             username = mydb.cursor.fetchall()
             username = username[0][0]
-            apiuser = user.user(username, "dummy")
+            apiuser = user(username, "dummy")
             apiuser.authenticated = True
             data = apiuser.field_values(fieldname)
             api_loggers[apikey] = {"object" : apiuser}
@@ -377,6 +382,7 @@ def update_values(apikey, data):
                 humidity = data[3]
                 moisture = data[4]
                 light = data[5]
+                print(str(temp) + " " + str(humidity) + " " + str(moisture) + " " + str(light))
                 mydb.update_values(apikey, fieldname, deviceID, temp, humidity, moisture, light)
                 return ("Values Updated")
             else:

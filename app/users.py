@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+""" User class """
 import hashlib, os
 from passlib.hash import sha512_crypt as sha
 from datetime import datetime
@@ -7,15 +9,37 @@ from .database import db
 # Load environment variables
 load_dotenv("./.env")
 class user:
+    """
+    Represents a user in the system, managing authentication, user details, and associated devices.
 
+    Attributes:
+    -----------
+    - db (db): Database connection object.
+    - username (str): The username of the user.
+    - secret (str): The password of the user.
+    - authenticated (bool): Indicates whether the user is authenticated.
+    - first (str): The user's first name (set after authentication).
+    - last (str): The user's last name (set after authentication).
+    - email (str): The user's email address (set after authentication).
+    - phone (str): The user's phone number (set after authentication).
+    - last_login (str): The user's last login timestamp (set after authentication).
+    - api (str): The user's API key (set after authentication).
+    - device_list (list): List of devices associated with the user (set after authentication).
+    """
     def __init__(self, username, password):
-        self.db = db(
-            os.environ.get('DBUSER'),
-            os.environ.get('DBHOST'),
-            os.environ.get('DBPASSWORD'),
-            os.environ.get('DBNAME')
-        )
+        """
+        Initializes a new user instance and attempts to authenticate the user.
 
+        Parameters:
+        -----------
+        - username (str): The username of the user.
+        - password (str): The password of the user.
+
+        Side Effects:
+        -------------
+        - Authenticates the user and fetches user details and associated devices.
+        """
+        self.db = db('ibrahim', 'localhost', 'Django@2024', 'django')
         self.username = username 
         self.secret = password
         self.authenticated = False
@@ -24,7 +48,21 @@ class user:
         self.get_devices()
 
     def auth (self):
-        #this is the place where user will get authenticated
+        """
+        Authenticates the user by verifying the provided password.
+
+        Returns:
+        --------
+        - bool: True if authentication succeeds, otherwise False.
+
+        Side Effects:
+        -------------
+        - Updates the user's last login time if authentication is successful.
+
+        Exceptions:
+        -----------
+        - Prints an error message if the query execution fails.
+        """
         try:
             query = 'select password from users where username = "{0}"'.format(self.username)
             print(query)
@@ -48,7 +86,17 @@ class user:
             print(e)
 
     def get_details (self):
-        
+        """
+        Fetches and stores the user's details if authenticated.
+
+        Returns:
+        --------
+        - bool: True if details are successfully fetched, otherwise False.
+
+        Exceptions:
+        -----------
+        - Prints an error message if the query execution fails.
+        """
         try:
             if self.authenticated:
                 query = 'select * from users where username = "{0}"'.format(self.username)
@@ -72,7 +120,18 @@ class user:
             print(e)
     
     def get_devices(self):
+        """
+        Fetches and stores the list of devices associated with the user if authenticated.
 
+        Returns:
+        --------
+        - list: A list of device IDs associated with the user.
+        - bool: False if the user is not authenticated.
+
+        Exceptions:
+        -----------
+        - Prints an error message if the query execution fails.
+        """
         try:
             if self.authenticated:
                 query = 'select deviceID from Node where username = "{0}"'.format(self.username)
@@ -91,6 +150,22 @@ class user:
             print (e)
 
     def dev_info(self, deviceID):
+        """
+        Fetches detailed information for a specific device.
+
+        Parameters:
+        -----------
+        - deviceID (str): The unique identifier of the device.
+
+        Returns:
+        --------
+        - tuple: The device details as a tuple.
+        - bool: False if the user is not authenticated.
+
+        Exceptions:
+        -----------
+        - Prints an error message if the query execution fails.
+        """
         try:
             
             if self.authenticated:
@@ -108,7 +183,22 @@ class user:
             print(e)
     
     def field_values(self, fieldname):
-        #here we will access all the values of devices according to time
+        """
+        Fetches the latest 10 values from a specific field sorted by time.
+
+        Parameters:
+        -----------
+        - fieldname (str): The name of the database table.
+
+        Returns:
+        --------
+        - list: A list of the latest 10 field values.
+        - bool: False if the user is not authenticated.
+
+        Exceptions:
+        -----------
+        - Prints an error message if the query execution fails.
+        """
         try:
             if self.authenticated:
                 query = 'select * from (select * from {0} order by date_time desc limit 10) dummy order by date_time asc;'.format(fieldname)
@@ -122,12 +212,28 @@ class user:
             print(e)
 
     def device_values(self, fieldname, deviceID):
+        """
+        Fetches the latest 10 values for a specific device from a specific field.
+
+        Parameters:
+        -----------
+        - fieldname (str): The name of the database table.
+        - deviceID (str): The unique identifier of the device.
+
+        Returns:
+        --------
+        - list: A list of the latest 10 device-specific field values.
+        - bool: False if the user is not authenticated.
+
+        Exceptions:
+        -----------
+        - Prints an error message if the query execution fails.
+        """
         try:
             if self.authenticated:
                 query = 'select * from (select * from (select * from {0} where deviceID = "{1}") var1 order by date_time desc limit 10) dummy order by date_time asc;'.format(fieldname, deviceID)
                 self.db.cursor.execute(query)
                 output = self.db.cursor.fetchall()
-                # print(output)
                 return output
             else:
                 return False
