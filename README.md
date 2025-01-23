@@ -24,8 +24,8 @@ This project is a Flask-based web application that provides a robust backend for
 5. **Environment Configuration**:
    - Uses `.env` file for secure storage of environment variables like database credentials.
 
-## Setup Instructions
-![Infrastructure](./Infrastructure_design/smartx_platformsmartx_platform.png)
+## Setup Instructions And Infrastructure
+![Infrastructure](./Infrastructure_design/smartx_platform.png)
 ### Prerequisites
 
 - Python 3.7+
