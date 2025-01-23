@@ -1,3 +1,4 @@
+![Project Demo](demo.png)
 # Flask Application - Routing and API
 
 This project is a Flask-based web application that provides a robust backend for managing users, devices, and APIs. Below is a detailed overview of the project’s features, setup instructions, and usage guidelines.
@@ -24,7 +25,7 @@ This project is a Flask-based web application that provides a robust backend for
    - Uses `.env` file for secure storage of environment variables like database credentials.
 
 ## Setup Instructions
-
+![Infrastructure](./Infrastructure_design/smartx_platformsmartx_platform.png)
 ### Prerequisites
 
 - Python 3.7+
