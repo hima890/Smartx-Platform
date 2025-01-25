@@ -152,8 +152,3 @@ This project is a Flask-based web application that provides a robust backend for
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
----
-
-Feel free to modify this README as the project evolves!
-
